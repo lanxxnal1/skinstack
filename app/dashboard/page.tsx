@@ -35,17 +35,22 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
 
   const load = useCallback(async () => {
-    const [p, f, dh, b] = await Promise.all([
-      fetchProducts(),
-      fetchFinishedProducts(),
-      fetchDurationHistory(),
-      fetchBrands(),
-    ]);
-    setProducts(p);
-    setFinished(f);
-    setDurationHistory(dh);
-    setBrands(b);
-    setLoading(false);
+    try {
+      const [p, f, dh, b] = await Promise.all([
+        fetchProducts(),
+        fetchFinishedProducts(),
+        fetchDurationHistory(),
+        fetchBrands(),
+      ]);
+      setProducts(p);
+      setFinished(f);
+      setDurationHistory(dh);
+      setBrands(b);
+    } catch (err) {
+      console.error('Failed to load data', err);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   useEffect(() => {
@@ -92,10 +97,14 @@ export default function DashboardPage() {
   }
 
   async function handleOnboardingDone(newProducts: Omit<Product, 'id' | 'user_id'>[]) {
-    await Promise.all(newProducts.map(p => insertProduct(p)));
-    localStorage.setItem(ONBOARDING_KEY, '1');
-    setModal(null);
-    await load();
+    try {
+      await Promise.all(newProducts.map(p => insertProduct(p)));
+      localStorage.setItem(ONBOARDING_KEY, '1');
+      setModal(null);
+      await load();
+    } catch (err) {
+      console.error('Onboarding save failed', err);
+    }
   }
 
   const activeProduct = modal?.type === 'edit' || modal?.type === 'menu' || modal?.type === 'finish'
