@@ -1,36 +1,37 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SkinStack
 
-## Getting Started
+A multi-user skincare product tracker. Track what you're using, how fast you're going through it, and when to restock.
 
-First, run the development server:
+## Features
+
+- Track active products with progress bars and restock alerts
+- Morning / Evening / Both routine grouping
+- Duration learning — estimates how long a product will last based on your history
+- Photo support (active and finished products)
+- Finished product archive with ratings
+- Brand autocomplete
+- First-launch onboarding flow
+- Import data from the original single-file app
+
+## Tech stack
+
+Next.js 14 (App Router) · Supabase (Auth + PostgreSQL + Storage) · TypeScript · Tailwind CSS · Vercel
+
+## Local development
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev       # http://localhost:3000
+npm run test:run  # run tests once
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Create `.env.local`:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Migrating from the old app
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Export a backup from the original `index.html` app, then go to `/import` after signing in and upload the JSON file. Photos are automatically migrated to Supabase Storage.
