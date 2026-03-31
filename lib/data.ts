@@ -27,13 +27,15 @@ export async function insertProduct(product: Omit<Product, 'id' | 'user_id'>): P
 
 export async function updateProduct(id: string, updates: Partial<Product>): Promise<void> {
   const supabase = createClient();
-  const { error } = await supabase.from('products').update(updates).eq('id', id);
+  const { data: { user } } = await supabase.auth.getUser();
+  const { error } = await supabase.from('products').update(updates).eq('id', id).eq('user_id', user!.id);
   if (error) throw error;
 }
 
 export async function deleteProduct(id: string): Promise<void> {
   const supabase = createClient();
-  const { error } = await supabase.from('products').delete().eq('id', id);
+  const { data: { user } } = await supabase.auth.getUser();
+  const { error } = await supabase.from('products').delete().eq('id', id).eq('user_id', user!.id);
   if (error) throw error;
 }
 
