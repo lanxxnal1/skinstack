@@ -157,8 +157,15 @@ export default function AddEditModal({
       {/* Duration */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
         <label style={labelStyle}>How long does a full bottle last? (days)</label>
-        <input type="number" min={1} max={999} value={duration}
-          onChange={e => setDuration(parseInt(e.target.value, 10) || 60)}
+        <input type="text" inputMode="numeric" pattern="[0-9]*" value={duration || ''}
+          onChange={e => {
+            const v = e.target.value.replace(/\D/g, '');
+            setDuration(v === '' ? 0 : parseInt(v, 10));
+          }}
+          onBlur={() => {
+            if (!duration || duration < 1) setDuration(60);
+            if (duration > 999) setDuration(999);
+          }}
           style={inputStyle} />
       </div>
 
