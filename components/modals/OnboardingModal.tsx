@@ -40,6 +40,7 @@ export default function OnboardingModal({ durationHistory, onDone, onSkip }: Onb
       start_date: todayISO(),
       created_at: new Date().toISOString(),
       duration: estimateDuration(name.trim(), category, durationHistory),
+      size_value: null, size_unit: null,
       initial_remaining: fillPct,
     };
   }

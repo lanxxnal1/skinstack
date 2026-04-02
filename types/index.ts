@@ -7,7 +7,9 @@ export interface Product {
   photo_url: string | null;
   start_date: string;       // ISO date e.g. "2026-03-01"
   created_at: string;       // ISO timestamp
-  duration: number;         // full-bottle lifespan in days
+  duration: number | null;        // legacy field, kept for fallback
+  size_value: number | null;      // bottle size e.g. 200
+  size_unit: 'ml' | 'g' | 'oz' | null;  // unit
   initial_remaining: number; // % when added (0-100)
   has_backup: boolean;
 }

@@ -17,7 +17,8 @@ export function todayISO(): string {
 export function calcProgress(product: Product): ProductProgress {
   const addedDate = product.created_at.slice(0, 10);
   const daysSinceAdded = daysBetween(addedDate, todayISO());
-  const usagePerDay = 100 / Math.max(1, product.duration);
+  const duration = product.duration ?? DURATION_DEFAULTS[product.category] ?? DURATION_DEFAULTS.Other;
+  const usagePerDay = 100 / Math.max(1, duration);
   const currentPct = Math.max(0, product.initial_remaining - daysSinceAdded * usagePerDay);
   const daysLeft = Math.round(currentPct / usagePerDay);
   return { currentPct: Math.round(currentPct), daysLeft };

@@ -73,6 +73,8 @@ export default function ImportPage() {
           start_date: p.startDate,
           created_at: p.createdAt,
           duration: p.duration,
+          size_value: null,
+          size_unit: null,
           initial_remaining: p.initialRemaining,
           has_backup: p.hasBackup,
         });

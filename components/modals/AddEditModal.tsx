@@ -71,7 +71,8 @@ export default function AddEditModal({
         photo_url: photoUrl,
         start_date: startDate,
         created_at: product?.created_at ?? new Date().toISOString(),
-        duration, initial_remaining: initialRemaining, has_backup: hasBackup,
+        duration, size_value: null, size_unit: null,
+        initial_remaining: initialRemaining, has_backup: hasBackup,
       }, pendingBrand ?? undefined);
       onClose();
     } catch (e: unknown) {
