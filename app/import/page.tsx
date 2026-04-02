@@ -5,6 +5,7 @@ import { createClient } from '@/lib/supabase-browser';
 import { insertProduct, insertFinishedProduct, insertDurationHistory } from '@/lib/data';
 import { uploadBase64Photo } from '@/lib/storage';
 import { useRouter } from 'next/navigation';
+import type { Product, FinishedProduct } from '@/types';
 
 interface OldProduct {
   id: string; name: string; category: string; routine?: string;
@@ -67,7 +68,7 @@ export default function ImportPage() {
         await insertProduct({
           name: p.name,
           category: p.category,
-          routine: (p.routine as any) ?? 'Both',
+          routine: (p.routine as Product['routine']) ?? 'Both',
           photo_url: photoUrl,
           start_date: p.startDate,
           created_at: p.createdAt,
@@ -90,7 +91,7 @@ export default function ImportPage() {
           photo_url: photoUrl,
           start_date: p.startDate, finish_date: p.finishDate,
           actual_duration: p.actualDuration,
-          rating: p.rating as any,
+          rating: p.rating as FinishedProduct['rating'],
           created_at: p.createdAt,
         });
       }
@@ -105,8 +106,8 @@ export default function ImportPage() {
 
       setStatus('Done! Redirecting to dashboard…');
       setTimeout(() => router.push('/dashboard'), 1500);
-    } catch (e: any) {
-      setError(e.message);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Unknown error');
     } finally {
       setRunning(false);
     }
