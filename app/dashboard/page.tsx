@@ -124,17 +124,17 @@ export default function DashboardPage() {
       <header style={{
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         padding: '20px 24px 16px', borderBottom: '1px solid var(--border)',
-        background: 'var(--surface)', position: 'sticky', top: 0, zIndex: 10,
+        background: 'var(--header-bg)', position: 'sticky', top: 0, zIndex: 10,
       }}>
-        <h1 style={{ fontSize: '22px', fontWeight: 800 }}>
+        <h1 style={{ fontSize: '22px', fontWeight: 800, color: 'var(--text)' }}>
           Skin<span style={{ color: 'var(--accent1)' }}>Stack</span>
         </h1>
         <div style={{ display: 'flex', gap: '8px' }}>
           <button
             onClick={() => setModal({ type: 'add' })}
-            style={{ background: 'var(--accent1)', color: '#fff', border: 'none', borderRadius: '8px', padding: '8px 16px', fontSize: '14px', fontWeight: 600, cursor: 'pointer' }}
+            style={{ background: 'var(--accent1)', color: 'var(--header-bg)', border: 'none', borderRadius: '8px', padding: '8px 16px', fontSize: '14px', fontWeight: 600, cursor: 'pointer' }}
           >
-            + Add product
+            + Add
           </button>
           <button
             onClick={handleSignOut}
@@ -152,7 +152,7 @@ export default function DashboardPage() {
             placeholder="Search products…"
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
-            style={{ maxWidth: '380px', border: '1.5px solid var(--border)', borderRadius: '8px', padding: '8px 12px', fontSize: '14px', width: '100%' }}
+            style={{ maxWidth: '380px', background: 'var(--bg)', border: '1.5px solid var(--border)', borderRadius: '8px', padding: '8px 12px', fontSize: '14px', width: '100%', color: 'var(--text)' }}
           />
         </div>
         <StatsBar products={products} />
@@ -164,12 +164,6 @@ export default function DashboardPage() {
         />
         <ArchiveSection products={finished} />
       </main>
-
-      <footer style={{ padding: '16px 24px', display: 'flex', gap: '12px', borderTop: '1px solid var(--border)', marginTop: '24px' }}>
-        <a href="/import" style={{ fontSize: '14px', color: 'var(--text-muted)', textDecoration: 'none' }}>
-          Import old backup
-        </a>
-      </footer>
 
       {(modal?.type === 'add' || modal?.type === 'edit') && (
         <AddEditModal

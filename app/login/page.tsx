@@ -57,7 +57,7 @@ export default function LoginPage() {
               type="email" required value={email}
               onChange={e => setEmail(e.target.value)}
               placeholder="you@example.com"
-              style={{ border: '1.5px solid var(--border)', borderRadius: '8px', padding: '8px 12px', fontSize: '14px', width: '100%' }}
+              style={{ background: 'var(--bg)', border: '1.5px solid var(--border)', borderRadius: '8px', padding: '8px 12px', fontSize: '14px', width: '100%', color: 'var(--text)' }}
             />
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
@@ -66,14 +66,14 @@ export default function LoginPage() {
               type="password" required value={password}
               onChange={e => setPassword(e.target.value)}
               placeholder="••••••••"
-              style={{ border: '1.5px solid var(--border)', borderRadius: '8px', padding: '8px 12px', fontSize: '14px', width: '100%' }}
+              style={{ background: 'var(--bg)', border: '1.5px solid var(--border)', borderRadius: '8px', padding: '8px 12px', fontSize: '14px', width: '100%', color: 'var(--text)' }}
             />
           </div>
           {error && <p style={{ fontSize: '13px', color: 'var(--red)' }}>{error}</p>}
           <button
             type="submit" disabled={loading}
             style={{
-              background: 'var(--accent1)', color: '#fff', border: 'none',
+              background: 'var(--accent1)', color: 'var(--header-bg)', border: 'none',
               borderRadius: '8px', padding: '10px', fontSize: '14px',
               fontWeight: 600, cursor: loading ? 'not-allowed' : 'pointer',
               opacity: loading ? 0.7 : 1,
@@ -95,7 +95,7 @@ export default function LoginPage() {
             style={{
               background: 'var(--surface)', border: '1.5px solid var(--border)',
               borderRadius: '8px', padding: '10px', fontSize: '14px',
-              fontWeight: 600, cursor: 'pointer',
+              fontWeight: 600, cursor: 'pointer', color: 'var(--text)',
             }}
           >
             Continue with Google
