@@ -66,20 +66,20 @@ export default function ProductCard({ product, allProducts, onTap }: ProductCard
     >
       {/* Photo area */}
       <div style={{
-        width: '100%', height: '120px', borderRadius: '10px',
+        width: '100%', height: '160px', borderRadius: '10px',
         background: 'var(--surface-raised)', overflow: 'hidden',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         fontSize: '28px',
       }}>
         {product.photo_url
           ? <img src={product.photo_url} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-          : <CategoryImage category={product.category} size={56} />
+          : <CategoryImage category={product.category} size={72} />
         }
       </div>
 
       {/* Name + category */}
-      <div style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text)' }}>{product.name}</div>
-      <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '-8px' }}>
+      <div style={{ fontSize: '17px', fontWeight: 700, color: 'var(--text)' }}>{product.name}</div>
+      <div style={{ fontSize: '13px', color: 'var(--text-muted)', marginTop: '-8px' }}>
         {product.category}{product.has_backup ? ' · 📦 backup' : ''} · {product.routine}
       </div>
 
@@ -96,14 +96,14 @@ export default function ProductCard({ product, allProducts, onTap }: ProductCard
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
         <span style={{
           display: 'inline-flex', alignItems: 'center', gap: '4px',
-          fontSize: '11px', fontWeight: 700,
-          padding: '3px 10px', borderRadius: '99px',
+          fontSize: '12px', fontWeight: 700,
+          padding: '4px 12px', borderRadius: '99px',
           textTransform: 'uppercase', letterSpacing: '0.04em',
           background: badge.background, color: badge.color,
         }}>
           {STATUS_LABEL[status]}
         </span>
-        <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{daysText}</span>
+        <span style={{ fontSize: '13px', color: 'var(--text-muted)' }}>{daysText}</span>
       </div>
     </div>
   );

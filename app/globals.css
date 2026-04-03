@@ -25,6 +25,7 @@
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 18px; }
 body {
   font-family: 'DM Sans', -apple-system, sans-serif;
   background: var(--bg);
