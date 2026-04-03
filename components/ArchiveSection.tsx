@@ -15,13 +15,14 @@ export default function ArchiveSection({ products }: ArchiveSectionProps) {
   if (!products.length) return null;
 
   return (
-    <section style={{ marginTop: '8px', padding: '0 0 24px' }}>
+    <section style={{ padding: '28px 32px 40px' }}>
       <div style={{
-        padding: '20px 24px 12px',
         borderTop: '1px solid var(--border)',
+        paddingTop: '28px',
+        marginBottom: '18px',
       }}>
         <h2 style={{
-          fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em',
+          fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em',
           textTransform: 'uppercase', color: 'var(--text-muted)',
           margin: 0,
         }}>
@@ -29,8 +30,9 @@ export default function ArchiveSection({ products }: ArchiveSectionProps) {
         </h2>
       </div>
       <div style={{
-        display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)',
-        gap: '12px', padding: '0 24px',
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+        gap: '16px',
       }}>
         {products.map(p => (
           <ArchiveCard key={p.id} product={p} onClick={() => setSelected(p)} />
