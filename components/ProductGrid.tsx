@@ -41,12 +41,6 @@ export default function ProductGrid({ products, searchQuery, onTap }: ProductGri
         const inRoutine = filtered.filter(p => p.routine === routine);
         if (!inRoutine.length) return null;
 
-        const byCategory: Record<string, Product[]> = {};
-        inRoutine.forEach(p => {
-          if (!byCategory[p.category]) byCategory[p.category] = [];
-          byCategory[p.category].push(p);
-        });
-
         return (
           <div key={routine} style={{ padding: '28px 32px' }}>
             {/* Routine section label */}
@@ -58,32 +52,20 @@ export default function ProductGrid({ products, searchQuery, onTap }: ProductGri
             }}>
               {ROUTINE_LABEL[routine]}
             </div>
-            {Object.entries(byCategory).map(([cat, catProducts]) => (
-              <div key={cat} style={{ marginBottom: '20px' }}>
-                {/* Category sub-label */}
-                <div style={{
-                  fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em',
-                  textTransform: 'uppercase', color: 'var(--text-muted)',
-                  marginBottom: '12px',
-                }}>
-                  {cat}
-                </div>
-                <div style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-                  gap: '16px',
-                }}>
-                  {catProducts.map(p => (
-                    <ProductCard
-                      key={p.id}
-                      product={p}
-                      allProducts={products}
-                      onTap={onTap}
-                    />
-                  ))}
-                </div>
-              </div>
-            ))}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+              gap: '16px',
+            }}>
+              {inRoutine.map(p => (
+                <ProductCard
+                  key={p.id}
+                  product={p}
+                  allProducts={products}
+                  onTap={onTap}
+                />
+              ))}
+            </div>
           </div>
         );
       })}
