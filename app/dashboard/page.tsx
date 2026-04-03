@@ -170,6 +170,11 @@ export default function DashboardPage() {
           durationHistory={durationHistory}
           brands={brands}
           onSave={handleSaveProduct}
+          onSaveFinished={modal.type === 'add' ? async (data) => {
+            await insertFinishedProduct(data);
+            await insertDurationHistory(data.name, data.category, data.actual_duration);
+            await load();
+          } : undefined}
           onClose={() => setModal(null)}
         />
       )}
