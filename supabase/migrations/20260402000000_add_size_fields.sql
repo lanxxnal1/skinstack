@@ -5,3 +5,6 @@
 alter table products
   add column if not exists size_value numeric,
   add column if not exists size_unit text check (size_unit in ('ml', 'g', 'oz'));
+
+-- duration is now a legacy nullable field
+alter table products alter column duration drop not null;
