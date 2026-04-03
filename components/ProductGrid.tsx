@@ -48,12 +48,12 @@ export default function ProductGrid({ products, searchQuery, onTap }: ProductGri
         });
 
         return (
-          <div key={routine} style={{ padding: '20px 24px' }}>
+          <div key={routine} style={{ padding: '28px 32px' }}>
             {/* Routine section label */}
             <div style={{
-              fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em',
+              fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em',
               textTransform: 'uppercase', color: 'var(--text-muted)',
-              marginBottom: '14px', paddingBottom: '8px',
+              marginBottom: '18px', paddingBottom: '10px',
               borderBottom: '1px solid var(--border)',
             }}>
               {ROUTINE_LABEL[routine]}
@@ -64,14 +64,14 @@ export default function ProductGrid({ products, searchQuery, onTap }: ProductGri
                 <div style={{
                   fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em',
                   textTransform: 'uppercase', color: 'var(--text-muted)',
-                  marginBottom: '10px',
+                  marginBottom: '12px',
                 }}>
                   {cat}
                 </div>
                 <div style={{
                   display: 'grid',
-                  gridTemplateColumns: 'repeat(3, 1fr)',
-                  gap: '12px',
+                  gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
+                  gap: '16px',
                 }}>
                   {catProducts.map(p => (
                     <ProductCard

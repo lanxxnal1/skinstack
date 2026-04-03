@@ -145,7 +145,7 @@ export default function DashboardPage() {
         </div>
       </header>
 
-      <main style={{ maxWidth: '1100px', margin: '0 auto' }}>
+      <main style={{ maxWidth: '1400px', margin: '0 auto' }}>
         <div style={{ padding: '16px 24px 0' }}>
           <input
             type="search"
