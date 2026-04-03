@@ -22,6 +22,19 @@ const BADGE_STYLE: Record<ProductStatus, { background: string; color: string }> 
   expired:        { background: 'var(--red-bg)',    color: 'var(--red)' },
 };
 
+const CATEGORY_EMOJI: Record<string, string> = {
+  Moisturizer: '🫧',
+  Serum:       '💧',
+  Sunscreen:   '☀️',
+  Cleanser:    '🫧',
+  Toner:       '💦',
+  'Eye Cream': '👁️',
+  Mask:        '🎭',
+  'Face Oil':  '🌿',
+  Exfoliant:   '✨',
+  Other:       '🧴',
+};
+
 const BAR_COLOR: Record<ProductStatus, string> = {
   normal:         'var(--accent1)',
   'restock-soon': 'var(--yellow)',
@@ -77,7 +90,7 @@ export default function ProductDetailModal({
       }}>
         {product.photo_url
           ? <img src={product.photo_url} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-          : <span>🧴</span>}
+          : <span>{CATEGORY_EMOJI[product.category] ?? '🧴'}</span>}
       </div>
 
       {/* Progress */}

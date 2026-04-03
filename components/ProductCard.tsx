@@ -37,6 +37,19 @@ const CARD_BORDER: Record<ProductStatus, string> = {
   expired:        '1px solid rgba(232,92,74,0.3)',
 };
 
+const CATEGORY_EMOJI: Record<string, string> = {
+  Moisturizer: '🫧',
+  Serum:       '💧',
+  Sunscreen:   '☀️',
+  Cleanser:    '🫧',
+  Toner:       '💦',
+  'Eye Cream': '👁️',
+  Mask:        '🎭',
+  'Face Oil':  '🌿',
+  Exfoliant:   '✨',
+  Other:       '🧴',
+};
+
 interface ProductCardProps {
   product: Product;
   allProducts: Product[];
@@ -72,7 +85,7 @@ export default function ProductCard({ product, allProducts, onTap }: ProductCard
       }}>
         {product.photo_url
           ? <img src={product.photo_url} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-          : <span>🧴</span>
+          : <span>{CATEGORY_EMOJI[product.category] ?? '🧴'}</span>
         }
       </div>
 
