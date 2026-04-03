@@ -2,6 +2,7 @@
 
 import Modal from './Modal';
 import { calcProgress, getStatus } from '@/lib/logic';
+import CategoryImage from '@/components/CategoryImage';
 import type { Product, ProductStatus } from '@/types';
 
 const STATUS_LABEL: Record<ProductStatus, string> = {
@@ -90,7 +91,7 @@ export default function ProductDetailModal({
       }}>
         {product.photo_url
           ? <img src={product.photo_url} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-          : <span>{CATEGORY_EMOJI[product.category] ?? '🧴'}</span>}
+          : <CategoryImage category={product.category} size={64} />}
       </div>
 
       {/* Progress */}
