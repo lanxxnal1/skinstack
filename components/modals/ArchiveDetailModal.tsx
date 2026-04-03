@@ -17,7 +17,7 @@ export default function ArchiveDetailModal({ product, onClose }: ArchiveDetailMo
     <Modal onClose={onClose}>
       {product.photo_url && (
         <img src={product.photo_url} alt={product.name}
-          style={{ width: '100%', borderRadius: '8px', objectFit: 'cover', maxHeight: '220px' }} />
+          style={{ width: '100%', borderRadius: '8px', objectFit: 'contain', maxHeight: '220px' }} />
       )}
       <h2 style={{ fontSize: '18px', fontWeight: 700 }}>{product.name}</h2>
       <p style={{ fontSize: '13px', color: 'var(--text-muted)', marginTop: '-10px' }}>{product.category}</p>

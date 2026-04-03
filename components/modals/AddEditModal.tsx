@@ -102,7 +102,7 @@ export default function AddEditModal({
           fontSize: '28px', color: 'var(--border)',
         }}>
           {photoPreview
-            ? <img src={photoPreview} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            ? <img src={photoPreview} alt="" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
             : <span>📷</span>}
           <input type="file" accept="image/*" onChange={handlePhotoChange} style={{ display: 'none' }} />
         </label>

@@ -77,7 +77,7 @@ export default function ProductDetailModal({
         display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '48px',
       }}>
         {product.photo_url
-          ? <img src={product.photo_url} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          ? <img src={product.photo_url} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
           : <CategoryImage category={product.category} size={64} />}
       </div>
 
