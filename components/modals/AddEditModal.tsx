@@ -70,7 +70,8 @@ export default function AddEditModal({
       }, pendingBrand ?? undefined);
       onClose();
     } catch (e: unknown) {
-      setError(e instanceof Error ? e.message : 'An error occurred');
+      const msg = e instanceof Error ? e.message : (e as { message?: string })?.message ?? 'An error occurred';
+      setError(msg);
     } finally {
       setSaving(false);
     }
