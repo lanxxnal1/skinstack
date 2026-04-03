@@ -49,21 +49,31 @@ export default function ProductGrid({ products, searchQuery, onMenu, onFinish }:
         });
 
         return (
-          <div key={routine} style={{ padding: '8px 24px 4px' }}>
+          <div key={routine} style={{ padding: '20px 24px' }}>
+            {/* Routine section label */}
             <div style={{
-              fontSize: '11px', fontWeight: 700, letterSpacing: '0.06em',
+              fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em',
               textTransform: 'uppercase', color: 'var(--text-muted)',
-              marginBottom: '12px', paddingBottom: '6px',
+              marginBottom: '14px', paddingBottom: '8px',
               borderBottom: '1px solid var(--border)',
             }}>
               {ROUTINE_LABEL[routine]}
             </div>
             {Object.entries(byCategory).map(([cat, catProducts]) => (
               <div key={cat} style={{ marginBottom: '20px' }}>
-                <div style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-muted)', marginBottom: '10px' }}>
+                {/* Category sub-label */}
+                <div style={{
+                  fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em',
+                  textTransform: 'uppercase', color: 'var(--text-muted)',
+                  marginBottom: '10px',
+                }}>
                   {cat}
                 </div>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '16px' }}>
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(3, 1fr)',
+                  gap: '12px',
+                }}>
                   {catProducts.map(p => (
                     <ProductCard
                       key={p.id}

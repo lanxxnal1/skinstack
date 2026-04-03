@@ -10,13 +10,31 @@ const STATUS_LABEL: Record<ProductStatus, string> = {
   expired:        '⏰ Expired',
 };
 
-const BADGE_COLOR: Record<ProductStatus, { bg: string; color: string }> = {
-  normal:         { bg: '#e8f5ee', color: 'var(--green)' },
-  'restock-soon': { bg: '#fff4e0', color: 'var(--yellow)' },
-  'restock-now':  { bg: '#fde8e6', color: 'var(--red)' },
-  overstocked:    { bg: '#ece8fd', color: 'var(--purple)' },
-  'nearly-empty': { bg: '#fff4e0', color: 'var(--yellow)' },
-  expired:        { bg: '#fde8e6', color: 'var(--red)' },
+const BADGE_STYLE: Record<ProductStatus, { background: string; color: string }> = {
+  normal:         { background: 'var(--green-bg)',  color: 'var(--green)' },
+  'restock-soon': { background: 'var(--yellow-bg)', color: 'var(--yellow)' },
+  'restock-now':  { background: 'var(--red-bg)',    color: 'var(--red)' },
+  overstocked:    { background: 'var(--purple-bg)', color: 'var(--purple)' },
+  'nearly-empty': { background: 'var(--red-bg)',    color: 'var(--red)' },
+  expired:        { background: 'var(--red-bg)',    color: 'var(--red)' },
+};
+
+const BAR_COLOR: Record<ProductStatus, string> = {
+  normal:         'var(--accent1)',
+  'restock-soon': 'var(--yellow)',
+  'restock-now':  'var(--red)',
+  overstocked:    'var(--purple)',
+  'nearly-empty': 'var(--red)',
+  expired:        'var(--red)',
+};
+
+const CARD_BORDER: Record<ProductStatus, string> = {
+  normal:         '1px solid var(--border)',
+  'restock-soon': '1px solid var(--border)',
+  'restock-now':  '1px solid rgba(232,92,74,0.3)',
+  overstocked:    '1px solid var(--border)',
+  'nearly-empty': '1px solid rgba(232,92,74,0.3)',
+  expired:        '1px solid rgba(232,92,74,0.3)',
 };
 
 interface ProductCardProps {
@@ -29,7 +47,7 @@ interface ProductCardProps {
 export default function ProductCard({ product, allProducts, onMenu, onFinish }: ProductCardProps) {
   const { currentPct, daysLeft } = calcProgress(product);
   const status = getStatus(currentPct, daysLeft, product.category, product.routine, allProducts);
-  const badge = BADGE_COLOR[status];
+  const badge = BADGE_STYLE[status];
   const needsAction = status === 'expired' || status === 'nearly-empty';
   const daysText = status === 'expired'
     ? 'Did you finish this?'
@@ -37,9 +55,11 @@ export default function ProductCard({ product, allProducts, onMenu, onFinish }: 
 
   return (
     <div style={{
-      background: 'var(--surface)', borderRadius: '14px',
-      boxShadow: '0 2px 12px rgba(61,43,31,0.08)',
-      padding: '16px', display: 'flex', flexDirection: 'column', gap: '10px',
+      background: 'var(--surface)',
+      border: CARD_BORDER[status],
+      borderRadius: '12px',
+      padding: '14px',
+      display: 'flex', flexDirection: 'column', gap: '10px',
       position: 'relative',
     }}>
       <button
@@ -54,11 +74,12 @@ export default function ProductCard({ product, allProducts, onMenu, onFinish }: 
         ⋯
       </button>
 
+      {/* Photo area */}
       <div style={{
-        width: '100%', height: '100px', borderRadius: '8px',
-        background: 'var(--bg)', overflow: 'hidden',
+        width: '100%', height: '80px', borderRadius: '8px',
+        background: 'var(--surface-raised)', overflow: 'hidden',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
-        fontSize: '32px', color: 'var(--border)',
+        fontSize: '28px',
       }}>
         {product.photo_url
           ? <img src={product.photo_url} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
@@ -66,28 +87,33 @@ export default function ProductCard({ product, allProducts, onMenu, onFinish }: 
         }
       </div>
 
-      <div style={{ fontSize: '15px', fontWeight: 700 }}>{product.name}</div>
-      <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '-6px' }}>
+      {/* Name + category */}
+      <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text)' }}>{product.name}</div>
+      <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginTop: '-6px' }}>
         {product.category}{product.has_backup ? ' · 📦 backup' : ''} · {product.routine}
       </div>
 
-      <div style={{ height: '6px', background: 'var(--border)', borderRadius: '3px', overflow: 'hidden' }}>
+      {/* Progress bar */}
+      <div style={{ height: '4px', background: 'var(--bg)', borderRadius: '2px', overflow: 'hidden' }}>
         <div style={{
-          height: '100%', borderRadius: '3px',
-          background: 'linear-gradient(90deg, var(--accent1), var(--accent2))',
+          height: '100%', borderRadius: '2px',
+          background: BAR_COLOR[status],
           width: `${currentPct}%`, transition: 'width 0.4s ease',
         }} />
       </div>
 
+      {/* Badge + days */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
         <span style={{
           display: 'inline-flex', alignItems: 'center', gap: '4px',
-          fontSize: '11px', fontWeight: 700, padding: '3px 10px', borderRadius: '20px',
-          background: badge.bg, color: badge.color,
+          fontSize: '10px', fontWeight: 700,
+          padding: '2px 7px', borderRadius: '99px',
+          textTransform: 'uppercase', letterSpacing: '0.04em',
+          background: badge.background, color: badge.color,
         }}>
           {STATUS_LABEL[status]}
         </span>
-        <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{daysText}</span>
+        <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{daysText}</span>
       </div>
 
       {needsAction && (

@@ -16,12 +16,18 @@ export default function StatsBar({ products }: StatsBarProps) {
     ? Math.round(products.reduce((sum, p) => sum + calcProgress(p).daysLeft, 0) / products.length)
     : null;
 
-  const statStyle = { display: 'flex', flexDirection: 'column' as const, gap: '2px' };
-  const valueStyle = { fontSize: '22px', fontWeight: 800 };
-  const labelStyle = { fontSize: '12px', color: 'var(--text-muted)' };
+  const statStyle = { display: 'flex', flexDirection: 'column' as const, gap: '3px' };
+  const valueStyle = { fontSize: '22px', fontWeight: 800, color: 'var(--text)' };
+  const labelStyle = {
+    fontSize: '11px', color: 'var(--text-muted)',
+    textTransform: 'uppercase' as const, letterSpacing: '0.06em',
+  };
 
   return (
-    <div style={{ display: 'flex', gap: '24px', padding: '16px 24px', flexWrap: 'wrap' as const }}>
+    <div style={{
+      display: 'flex', gap: '32px', padding: '14px 24px', flexWrap: 'wrap' as const,
+      background: 'var(--header-bg)', borderBottom: '1px solid var(--border)',
+    }}>
       <div style={statStyle}>
         <span style={valueStyle}>{products.length}</span>
         <span style={labelStyle}>Tracked</span>
