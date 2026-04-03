@@ -92,9 +92,14 @@ export default function DashboardPage() {
   ) {
     setModal(null);
     setProducts(prev => prev.filter(p => p.id !== productId));
-    await insertFinishedProduct(finishedData);
-    await insertDurationHistory(finishedData.name, finishedData.category, finishedData.actual_duration);
-    await dbDeleteProduct(productId);
+    try {
+      await insertFinishedProduct(finishedData);
+      await insertDurationHistory(finishedData.name, finishedData.category, finishedData.actual_duration);
+      await dbDeleteProduct(productId);
+    } catch (e) {
+      console.error('Failed to finish product:', e);
+      alert('Error: ' + (e instanceof Error ? e.message : (e as {message?:string})?.message ?? String(e)));
+    }
     await load();
   }
 
