@@ -91,6 +91,7 @@ export default function DashboardPage() {
     finishedData: Omit<FinishedProduct, 'id' | 'user_id'>
   ) {
     setModal(null);
+    setProducts(prev => prev.filter(p => p.id !== productId));
     await insertFinishedProduct(finishedData);
     await insertDurationHistory(finishedData.name, finishedData.category, finishedData.actual_duration);
     await dbDeleteProduct(productId);
