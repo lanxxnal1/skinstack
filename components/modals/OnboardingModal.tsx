@@ -68,7 +68,7 @@ export default function OnboardingModal({ durationHistory, onDone, onSkip }: Onb
   const inputStyle: React.CSSProperties = {
     border: '1.5px solid var(--border)', borderRadius: '8px',
     padding: '8px 12px', fontSize: '14px', width: '100%',
-    background: 'var(--surface)', color: 'var(--text)',
+    background: 'var(--bg)', color: 'var(--text)',
   };
   const labelStyle: React.CSSProperties = { fontSize: '13px', fontWeight: 600, color: 'var(--text-muted)' };
 
@@ -115,9 +115,9 @@ export default function OnboardingModal({ durationHistory, onDone, onSkip }: Onb
             <button key={opt.pct} onClick={() => setFillPct(opt.pct)}
               style={{
                 fontSize: '13px',
-                background: fillPct === opt.pct ? '#fff4ee' : 'none',
+                background: fillPct === opt.pct ? 'var(--surface-raised)' : 'none',
                 border: `2px solid ${fillPct === opt.pct ? 'var(--accent1)' : 'var(--border)'}`,
-                borderRadius: '8px', padding: '6px 10px', cursor: 'pointer', fontWeight: 600,
+                borderRadius: '8px', padding: '6px 10px', cursor: 'pointer', fontWeight: 600, color: 'var(--text)',
               }}>
               {opt.label}
             </button>

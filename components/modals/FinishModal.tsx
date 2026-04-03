@@ -85,8 +85,8 @@ export default function FinishModal({ product, onConfirm, onClose }: FinishModal
           {ratingOptions.map(opt => (
             <button key={opt.value} onClick={() => setRating(opt.value)}
               style={{
-                fontSize: '13px',
-                background: rating === opt.value ? '#fff4ee' : 'none',
+                fontSize: '13px', color: 'var(--text)',
+                background: rating === opt.value ? 'var(--surface-raised)' : 'none',
                 border: `2px solid ${rating === opt.value ? 'var(--accent1)' : 'var(--border)'}`,
                 borderRadius: '8px', padding: '6px 10px', cursor: 'pointer', fontWeight: 600,
               }}>

@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Modal from './Modal';
-import { estimateDuration, todayISO } from '@/lib/logic';
+import { todayISO } from '@/lib/logic';
 import { uploadPhoto } from '@/lib/storage';
 import { createClient } from '@/lib/supabase-browser';
 import type { Product, DurationHistory } from '@/types';
@@ -21,14 +21,13 @@ interface AddEditModalProps {
 }
 
 export default function AddEditModal({
-  product, durationHistory, brands, onSave, onClose,
+  product, brands, onSave, onClose,
 }: AddEditModalProps) {
   const [name, setName] = useState(product?.name ?? '');
   const [category, setCategory] = useState(product?.category ?? 'Moisturizer');
   const [routine, setRoutine] = useState<Product['routine']>(product?.routine ?? 'Both');
-  const [duration, setDuration] = useState(
-    product?.duration ?? estimateDuration('', product?.category ?? 'Moisturizer', durationHistory)
-  );
+  const [sizeValue, setSizeValue] = useState<number | null>(product?.size_value ?? null);
+  const [sizeUnit, setSizeUnit] = useState<'ml' | 'g' | 'oz'>(product?.size_unit ?? 'ml');
   const [startDate, setStartDate] = useState(product?.start_date ?? todayISO());
   const [initialRemaining, setInitialRemaining] = useState(product?.initial_remaining ?? 100);
   const [hasBackup, setHasBackup] = useState(product?.has_backup ?? false);
@@ -37,11 +36,6 @@ export default function AddEditModal({
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [pendingBrand, setPendingBrand] = useState<string | null>(null);
-
-  useEffect(() => {
-    const est = estimateDuration(name, category, durationHistory);
-    setDuration(est);
-  }, [category]);
 
   function handlePhotoChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -71,7 +65,7 @@ export default function AddEditModal({
         photo_url: photoUrl,
         start_date: startDate,
         created_at: product?.created_at ?? new Date().toISOString(),
-        duration, size_value: null, size_unit: null,
+        duration: null, size_value: sizeValue, size_unit: sizeUnit,
         initial_remaining: initialRemaining, has_backup: hasBackup,
       }, pendingBrand ?? undefined);
       onClose();
@@ -85,7 +79,7 @@ export default function AddEditModal({
   const inputStyle: React.CSSProperties = {
     border: '1.5px solid var(--border)', borderRadius: '8px',
     padding: '8px 12px', fontSize: '14px', width: '100%',
-    background: 'var(--surface)', color: 'var(--text)',
+    background: 'var(--bg)', color: 'var(--text)',
   };
   const labelStyle: React.CSSProperties = {
     fontSize: '13px', fontWeight: 600, color: 'var(--text-muted)',
@@ -155,19 +149,27 @@ export default function AddEditModal({
         </select>
       </div>
 
-      {/* Duration */}
+      {/* Size */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-        <label style={labelStyle}>How long does a full bottle last? (days)</label>
-        <input type="text" inputMode="numeric" pattern="[0-9]*" value={duration || ''}
-          onChange={e => {
-            const v = e.target.value.replace(/\D/g, '');
-            setDuration(v === '' ? 0 : parseInt(v, 10));
-          }}
-          onBlur={() => {
-            if (!duration || duration < 1) setDuration(60);
-            if (duration > 999) setDuration(999);
-          }}
-          style={inputStyle} />
+        <label style={labelStyle}>Bottle size</label>
+        <div style={{ display: 'flex', gap: '8px' }}>
+          <input
+            type="text"
+            inputMode="decimal"
+            value={sizeValue ?? ''}
+            onChange={e => {
+              const v = e.target.value.replace(/[^0-9.]/g, '');
+              setSizeValue(v === '' ? null : parseFloat(v));
+            }}
+            placeholder="e.g. 200"
+            style={{ ...inputStyle, flex: 1 }}
+          />
+          <select value={sizeUnit} onChange={e => setSizeUnit(e.target.value as 'ml' | 'g' | 'oz')} style={{ ...inputStyle, width: '80px' }}>
+            <option value="ml">ml</option>
+            <option value="g">g</option>
+            <option value="oz">oz</option>
+          </select>
+        </div>
       </div>
 
       {/* Date opened */}
