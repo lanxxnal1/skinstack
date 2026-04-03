@@ -11,7 +11,7 @@ import StatsBar from '@/components/StatsBar';
 import ProductGrid from '@/components/ProductGrid';
 import ArchiveSection from '@/components/ArchiveSection';
 import AddEditModal from '@/components/modals/AddEditModal';
-import CardMenuModal from '@/components/modals/CardMenuModal';
+import ProductDetailModal from '@/components/modals/ProductDetailModal';
 import FinishModal from '@/components/modals/FinishModal';
 import OnboardingModal from '@/components/modals/OnboardingModal';
 import type { Product, FinishedProduct, DurationHistory } from '@/types';
@@ -21,7 +21,7 @@ const ONBOARDING_KEY = 'skinstack_onboarded';
 type ActiveModal =
   | { type: 'add' }
   | { type: 'edit'; productId: string }
-  | { type: 'menu'; productId: string }
+  | { type: 'detail'; productId: string }
   | { type: 'finish'; productId: string }
   | { type: 'onboarding' };
 
@@ -107,7 +107,7 @@ export default function DashboardPage() {
     }
   }
 
-  const activeProduct = modal?.type === 'edit' || modal?.type === 'menu' || modal?.type === 'finish'
+  const activeProduct = modal?.type === 'edit' || modal?.type === 'detail' || modal?.type === 'finish'
     ? products.find(p => p.id === modal.productId)
     : undefined;
 
@@ -159,8 +159,7 @@ export default function DashboardPage() {
         <ProductGrid
           products={products}
           searchQuery={searchQuery}
-          onMenu={id => setModal({ type: 'menu', productId: id })}
-          onFinish={id => setModal({ type: 'finish', productId: id })}
+          onTap={id => setModal({ type: 'detail', productId: id })}
         />
         <ArchiveSection products={finished} />
       </main>
@@ -175,9 +174,10 @@ export default function DashboardPage() {
         />
       )}
 
-      {modal?.type === 'menu' && activeProduct && (
-        <CardMenuModal
-          productName={activeProduct.name}
+      {modal?.type === 'detail' && activeProduct && (
+        <ProductDetailModal
+          product={activeProduct}
+          allProducts={products}
           onEdit={() => setModal({ type: 'edit', productId: activeProduct.id })}
           onFinish={() => setModal({ type: 'finish', productId: activeProduct.id })}
           onDelete={() => handleDeleteProduct(activeProduct.id)}

@@ -11,11 +11,10 @@ const ROUTINE_LABEL: Record<string, string> = {
 interface ProductGridProps {
   products: Product[];
   searchQuery: string;
-  onMenu: (id: string) => void;
-  onFinish: (id: string) => void;
+  onTap: (id: string) => void;
 }
 
-export default function ProductGrid({ products, searchQuery, onMenu, onFinish }: ProductGridProps) {
+export default function ProductGrid({ products, searchQuery, onTap }: ProductGridProps) {
   const q = searchQuery.toLowerCase();
   const filtered = q
     ? products.filter(p =>
@@ -79,8 +78,7 @@ export default function ProductGrid({ products, searchQuery, onMenu, onFinish }:
                       key={p.id}
                       product={p}
                       allProducts={products}
-                      onMenu={onMenu}
-                      onFinish={onFinish}
+                      onTap={onTap}
                     />
                   ))}
                 </div>

@@ -40,40 +40,29 @@ const CARD_BORDER: Record<ProductStatus, string> = {
 interface ProductCardProps {
   product: Product;
   allProducts: Product[];
-  onMenu: (id: string) => void;
-  onFinish: (id: string) => void;
+  onTap: (id: string) => void;
 }
 
-export default function ProductCard({ product, allProducts, onMenu, onFinish }: ProductCardProps) {
+export default function ProductCard({ product, allProducts, onTap }: ProductCardProps) {
   const { currentPct, daysLeft } = calcProgress(product);
   const status = getStatus(currentPct, daysLeft, product.category, product.routine, allProducts);
   const badge = BADGE_STYLE[status];
-  const needsAction = status === 'expired' || status === 'nearly-empty';
   const daysText = status === 'expired'
-    ? 'Did you finish this?'
+    ? 'Expired'
     : `~${daysLeft} day${daysLeft !== 1 ? 's' : ''} left`;
 
   return (
-    <div style={{
-      background: 'var(--surface)',
-      border: CARD_BORDER[status],
-      borderRadius: '12px',
-      padding: '14px',
-      display: 'flex', flexDirection: 'column', gap: '10px',
-      position: 'relative',
-    }}>
-      <button
-        onClick={() => onMenu(product.id)}
-        style={{
-          position: 'absolute', top: '10px', right: '10px',
-          background: 'none', border: 'none', cursor: 'pointer',
-          fontSize: '18px', color: 'var(--text-muted)', padding: '4px',
-        }}
-        aria-label="Product menu"
-      >
-        ⋯
-      </button>
-
+    <div
+      onClick={() => onTap(product.id)}
+      style={{
+        background: 'var(--surface)',
+        border: CARD_BORDER[status],
+        borderRadius: '12px',
+        padding: '14px',
+        display: 'flex', flexDirection: 'column', gap: '10px',
+        cursor: 'pointer',
+      }}
+    >
       {/* Photo area */}
       <div style={{
         width: '100%', height: '80px', borderRadius: '8px',
@@ -115,19 +104,6 @@ export default function ProductCard({ product, allProducts, onMenu, onFinish }: 
         </span>
         <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{daysText}</span>
       </div>
-
-      {needsAction && (
-        <button
-          onClick={() => onFinish(product.id)}
-          style={{
-            background: 'var(--accent1)', color: '#fff', border: 'none',
-            borderRadius: '8px', padding: '6px', fontSize: '12px',
-            fontWeight: 600, cursor: 'pointer', marginTop: '4px',
-          }}
-        >
-          Mark as finished
-        </button>
-      )}
     </div>
   );
 }
