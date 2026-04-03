@@ -38,19 +38,6 @@ const CARD_BORDER: Record<ProductStatus, string> = {
   expired:        '1px solid rgba(232,92,74,0.3)',
 };
 
-const CATEGORY_EMOJI: Record<string, string> = {
-  Moisturizer: '🫧',
-  Serum:       '💧',
-  Sunscreen:   '☀️',
-  Cleanser:    '🫧',
-  Toner:       '💦',
-  'Eye Cream': '👁️',
-  Mask:        '🎭',
-  'Face Oil':  '🌿',
-  Exfoliant:   '✨',
-  Other:       '🧴',
-};
-
 interface ProductCardProps {
   product: Product;
   allProducts: Product[];

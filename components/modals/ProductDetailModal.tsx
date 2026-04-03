@@ -23,19 +23,6 @@ const BADGE_STYLE: Record<ProductStatus, { background: string; color: string }> 
   expired:        { background: 'var(--red-bg)',    color: 'var(--red)' },
 };
 
-const CATEGORY_EMOJI: Record<string, string> = {
-  Moisturizer: '🫧',
-  Serum:       '💧',
-  Sunscreen:   '☀️',
-  Cleanser:    '🫧',
-  Toner:       '💦',
-  'Eye Cream': '👁️',
-  Mask:        '🎭',
-  'Face Oil':  '🌿',
-  Exfoliant:   '✨',
-  Other:       '🧴',
-};
-
 const BAR_COLOR: Record<ProductStatus, string> = {
   normal:         'var(--accent1)',
   'restock-soon': 'var(--yellow)',
