@@ -1,4 +1,5 @@
 import Modal from './Modal';
+import { daysBetween } from '@/lib/logic';
 import type { FinishedProduct } from '@/types';
 
 const RATING_LABEL: Record<string, string> = {
@@ -33,7 +34,7 @@ export default function ArchiveDetailModal({ product, onClose }: ArchiveDetailMo
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <span style={{ color: 'var(--text-muted)' }}>Lasted</span>
-          <span>{product.actual_duration} days</span>
+          <span>{daysBetween(product.start_date, product.finish_date)} days</span>
         </div>
         {product.rating && (
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
