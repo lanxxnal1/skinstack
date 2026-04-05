@@ -97,7 +97,7 @@ export default function AddEditModal({
     try {
       const photoUrl = await getPhotoUrl();
       const daysUsed = Math.max(1, daysBetween(startDate, finishDate));
-      const actualDuration = Math.round(daysUsed * (100 / Math.max(1, initialRemaining)));
+      const actualDuration = Math.max(1, Math.round(daysUsed * (100 / Math.max(1, initialRemaining))));
       await onSaveFinished({
         name: name.trim(), category,
         photo_url: photoUrl,

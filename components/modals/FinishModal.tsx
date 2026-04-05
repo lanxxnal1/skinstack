@@ -39,7 +39,7 @@ export default function FinishModal({ product, onConfirm, onClose }: FinishModal
       }
       const finishDate = todayISO();
       const daysUsed = Math.max(1, daysBetween(product.start_date, finishDate));
-      const actualDuration = Math.round(daysUsed * (100 / product.initial_remaining));
+      const actualDuration = Math.max(1, Math.round(daysUsed * (100 / Math.max(1, product.initial_remaining))));
       await onConfirm({
         name: product.name, category: product.category,
         photo_url: photoUrl,
